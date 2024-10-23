@@ -14,8 +14,12 @@ public class Shape {
     private Long id;
 
     @Column(name = "country_name", nullable = false)
-    private String name;
+    private String countryName;
 
     @Column(name = "image", nullable = false)
     private String image;
+
+    @Column(name = "country_id")
+    @JoinColumn(foreignKey = @ForeignKey(name = "FK_COUNTRY_SHAPE"))
+    private Long countryId;
 }

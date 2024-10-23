@@ -16,7 +16,4 @@ public class Country {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "shape_id")
-    @JoinColumn(foreignKey = @ForeignKey(name = "FK_SHAPE_COUNTRY"))
-    private Long shapeId;
 }
