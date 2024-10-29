@@ -1,10 +1,15 @@
 package com.agin.countrly.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "shapes")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Shape {
 
     @Id

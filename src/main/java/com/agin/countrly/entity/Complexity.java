@@ -2,10 +2,15 @@ package com.agin.countrly.entity;
 
 import com.agin.countrly.enums.ComplexityEnum;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "complexities")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Complexity {
 
     @Id
@@ -15,6 +20,7 @@ public class Complexity {
     private Long id;
 
     @Column(name = "complexity", nullable = false)
+    @Enumerated(EnumType.STRING)
     private ComplexityEnum complexity;
 
     @Column(name = "country_id")
