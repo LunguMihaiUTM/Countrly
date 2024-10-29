@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
                     .email(user.getEmail())
                     .password(user.getPassword())
                     .build();
-            // we use the first get() because of the Optional<Rank> we get with the comand get() the object from the Optional<>
+            // we use the first get() because of the Optional<Rank> we get with the command get() the object from the Optional<>
             return RankDTO.builder()
                     .id(rank.get().getId())
                     .name(rank.get().getName())
