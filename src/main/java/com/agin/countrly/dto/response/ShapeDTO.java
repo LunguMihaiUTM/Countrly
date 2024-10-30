@@ -11,7 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ShapeDTO {
     private Long id;
-    private String countryName;
     private byte[] image;
-    private CountryDTO country;
 }

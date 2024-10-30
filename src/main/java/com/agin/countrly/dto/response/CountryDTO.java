@@ -13,4 +13,5 @@ public class CountryDTO {
     private Long id;
     private String name;
     private ComplexityDTO complexity;
+    private ShapeDTO shape;
 }
