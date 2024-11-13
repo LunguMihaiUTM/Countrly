@@ -6,6 +6,7 @@ import com.agin.countrly.entity.User;
 import com.agin.countrly.repository.RankRepository;
 import com.agin.countrly.repository.UserRepository;
 import com.agin.countrly.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,31 +29,30 @@ public class UserServiceImpl implements UserService {
                 .map(user -> UserDTO.builder()
                         .id(user.getId())
                         .username(user.getUsername())
-                        .email(user.getEmail())
-                        .password(user.getPassword())
+                        .rank(getUserById(user.getId()).getRank())
                         .build()
                 ).collect(Collectors.toList());
     }
 
     @Override
-    public RankDTO getRankByUserId(Long userId) {
-        Optional<Rank> rank = rankRepository.findByUserId(userId);
-        if(rank.isPresent()) {
-            User user = userRepository.findById(userId).orElseThrow();
-            UserDTO userDTO = UserDTO.builder()
-                    .id(user.getId())
-                    .username(user.getUsername())
-                    .email(user.getEmail())
-                    .password(user.getPassword())
-                    .build();
-            // we use the first get() because of the Optional<Rank> we get with the command get() the object from the Optional<>
-            return RankDTO.builder()
+    public UserDTO getUserById(Long userId){
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()){
+            Optional<Rank> rank = rankRepository.findByUserId(userId);
+            RankDTO rankDTO = RankDTO.builder()
                     .id(rank.get().getId())
-                    .name(rank.get().getName())
                     .rating(rank.get().getRating())
-                    .user(userDTO)
+                    .name(rank.get().getName())
+                    .build();
+
+            return UserDTO.builder()
+                    .id(user.get().getId())
+                    .username(user.get().getUsername())
+                    .rank(rankDTO)
                     .build();
         }
-        return null;
+        throw new EntityNotFoundException("User not found: " + userId);
     }
+
+
 }

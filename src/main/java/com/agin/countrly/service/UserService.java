@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface UserService {
     List<UserDTO> getAllUsers();
-    RankDTO getRankByUserId(Long userId);
+    UserDTO getUserById(Long userId);
 }
