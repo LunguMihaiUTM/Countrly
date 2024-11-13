@@ -2,9 +2,9 @@ spring:
   application:
     name: java-course-spring
   datasource:
-    url: jdbc:postgresql://localhost:5432/countrly?currentSchema=user_schema
-    username: root
-    password: 1234
+    url: jdbc:postgresql://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}?currentSchema=user_schema
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: none
