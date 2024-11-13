@@ -2,9 +2,9 @@ spring:
   application:
     name: java-course-spring
   datasource:
-    url: jdbc:postgresql://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}?currentSchema=user_schema
-    username: ${PROD_DB_USERNAME}
-    password: ${PROD_DB_PASSWORD}
+    url: jdbc:postgresql://postgres.railway.internal:5432/railway
+    username: postgres
+    password: RBQsUtCjrydcabuaCIjJCMevGVawGJXJ
   jpa:
     hibernate:
       ddl-auto: none
@@ -14,4 +14,3 @@ spring:
   liquibase:
     change-log: db/changelog/db.changelog-master.yaml
     enabled: true
-
