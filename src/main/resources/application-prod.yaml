@@ -14,3 +14,11 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
     enabled: true
+
+springdoc:
+  swagger-ui:
+    urls:
+      - url: /v3/api-docs
+        name: countrly
+    server:
+      - url: https://exciting-wonder-production.up.railway.app
