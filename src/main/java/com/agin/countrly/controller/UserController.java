@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://exciting-wonder-production.up.railway.app")
 @RestController
 @RequestMapping("/user")
 public class UserController {
