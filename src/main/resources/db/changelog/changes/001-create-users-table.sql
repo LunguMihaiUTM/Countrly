@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS users (
     password    VARCHAR(255) NOT NULL
 );
 
-ALTER TABLE users OWNER TO root;
+ALTER TABLE users OWNER TO postgres;
 
 CREATE SEQUENCE user_id_seq;
 
-ALTER SEQUENCE user_id_seq OWNER TO root;
+ALTER SEQUENCE user_id_seq OWNER TO postgres;
