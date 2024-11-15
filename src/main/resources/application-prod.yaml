@@ -22,3 +22,7 @@ springdoc:
         name: countrly
     server:
       - url: https://exciting-wonder-production.up.railway.app
+
+shape:
+  resources:
+    path: src/main/resources/shapes
