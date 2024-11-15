@@ -14,3 +14,7 @@ spring:
   liquibase:
     change-log: db/changelog/db.changelog-master.yaml
     enabled: true
+    #Countries Shapes path reference
+shape:
+  resources:
+    path: src/main/resources/shapes
