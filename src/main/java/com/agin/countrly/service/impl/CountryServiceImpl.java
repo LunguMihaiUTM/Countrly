@@ -28,13 +28,12 @@ public class CountryServiceImpl implements CountryService {
     private final CountryRepository countryRepository;
     private final ShapeRepository shapeRepository;
     private final ComplexityRepository complexityRepository;
-    //@Value("${shape.resources.path}")
+    @Value("${shape.resources.path}")
     private String shapeResourcePath;
 
     @Override
     public List<CountryDTO> getAllCountries() {
         List<Country> countries = countryRepository.findAll();
-
         return countries.stream()
                 .map(country -> {
                     Shape shape = shapeRepository.findByCountryId(country.getId())
