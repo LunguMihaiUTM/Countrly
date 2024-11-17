@@ -18,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @Operation(summary = "Get All Users", description = "Return a List of UserDTO")
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
