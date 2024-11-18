@@ -24,6 +24,13 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new AuthException("Username is already taken.");
+        }
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new AuthException("Email is already in use.");
+        }
+
         var user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
