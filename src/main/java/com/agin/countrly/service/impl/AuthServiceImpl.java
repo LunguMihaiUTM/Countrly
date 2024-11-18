@@ -5,6 +5,7 @@ import com.agin.countrly.dto.request.RegisterRequest;
 import com.agin.countrly.dto.response.AuthenticationResponse;
 import com.agin.countrly.entity.User;
 import com.agin.countrly.enums.Role;
+import com.agin.countrly.exception.AuthException;
 import com.agin.countrly.repository.UserRepository;
 import com.agin.countrly.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -44,12 +45,16 @@ public class AuthServiceImpl implements AuthService {
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .username(user.getUsername())
-                .build();
+        try{
+            var user = userRepository.findByUsername(request.getUsername())
+                    .orElseThrow();
+            var jwtToken = jwtService.generateToken(user);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .username(user.getUsername())
+                    .build();
+        } catch (Exception e) {
+            throw new AuthException("Invalid username or password");
+        }
     }
 }
