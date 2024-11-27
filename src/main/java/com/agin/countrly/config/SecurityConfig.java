@@ -25,7 +25,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/auth/**",              // Changed from /api/v1/auth/** to /auth/**
-                                "/auth/register",        // Explicitly allowing registration endpoint
+                                "/auth/register",
+                                "/user/all",
                                 "/auth/login",          // Also allowing login endpoint
                                 "/v2/api-docs",
                                 "/v3/api-docs",
