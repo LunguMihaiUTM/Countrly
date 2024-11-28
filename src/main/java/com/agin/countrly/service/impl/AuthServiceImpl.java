@@ -3,9 +3,11 @@ package com.agin.countrly.service.impl;
 import com.agin.countrly.dto.request.LoginRequest;
 import com.agin.countrly.dto.request.RegisterRequest;
 import com.agin.countrly.dto.response.AuthenticationResponse;
+import com.agin.countrly.entity.Rank;
 import com.agin.countrly.entity.User;
 import com.agin.countrly.enums.Role;
 import com.agin.countrly.exception.AuthException;
+import com.agin.countrly.repository.RankRepository;
 import com.agin.countrly.repository.UserRepository;
 import com.agin.countrly.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtServiceImpl jwtService;
     private final AuthenticationManager authenticationManager;
+    private final RankRepository rankRepository;
 
     public AuthenticationResponse register(RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -39,11 +42,22 @@ public class AuthServiceImpl implements AuthService {
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
+
+        createRank(user.getId());
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .username(user.getUsername())
                 .build();
     }
+
+    private void createRank(Long userId){
+        Rank defaultRank = new Rank();
+        defaultRank.setUserId(userId);
+        defaultRank.setRating(0.0);
+        rankRepository.save(defaultRank);
+    }
+
 
     public AuthenticationResponse login(LoginRequest request) {
         authenticationManager.authenticate(
