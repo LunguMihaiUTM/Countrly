@@ -1,6 +1,7 @@
 package com.agin.countrly.entity;
 
 import com.agin.countrly.enums.Role;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,7 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "password", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "role", nullable = false)
@@ -42,6 +44,12 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
+
+    User(Long id, String username){
+        this.id = id;
+        this.username = username;
+    }
+
 
     @Override
     public String getUsername() {
