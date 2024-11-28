@@ -1,5 +1,8 @@
 package com.agin.countrly.service.impl;
 
+import com.agin.countrly.dto.response.RankDTO;
+import com.agin.countrly.dto.response.UserDTO;
+import com.agin.countrly.entity.Rank;
 import com.agin.countrly.entity.User;
 import com.agin.countrly.repository.RankRepository;
 import com.agin.countrly.repository.UserRepository;
@@ -9,6 +12,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -41,4 +47,28 @@ public class RankServiceImpl implements RankService {
 
         log.info("Successfully incremented rating for user {} by {}", userId, increment);
     }
+
+    @Override
+    public List<RankDTO> getAllRanks(){
+        List<Rank> ranks = rankRepository.findAll();
+        return ranks.stream()
+                .map(rank -> RankDTO.builder()
+                        .id(rank.getId())
+                        .rating(rank.getRating())
+                        .user(getUserById(rank.getUserId()))
+                        .build())
+                .toList();
+    }
+
+    private UserDTO getUserById(Long userId) {
+       Optional<User> user = userRepository.findUserWithoutPasswordById(userId);
+       if(user.isPresent()) {
+           return UserDTO.builder()
+                   .id(user.get().getId())
+                   .username(user.get().getUsername())
+                   .build();
+       }
+        throw new EntityNotFoundException("User not found: " + userId);
+    }
+
 }
