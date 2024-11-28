@@ -18,14 +18,15 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @Operation(summary = "Get All Users", description = "Return a List of UserDTO")
-    @GetMapping("/all")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
-    }
-
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.getUserById(userId));
     }
+
+    @Operation(summary = "Get All Users", description = "Consider this API only for test")
+    @GetMapping("/all")
+    public ResponseEntity<List<UserDTO>> getAllUsersCustom() {
+        return ResponseEntity.ok(userService.getALlUsersWithoutPassword());
+    }
+
 }
