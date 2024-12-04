@@ -7,4 +7,5 @@ import com.agin.countrly.entity.Country;
 public interface LocationService {
     CountryCoordinates getCountryCoordinates(String countryName);
     CountryInfoResponse getInfoBetweenCountries(String country1, String country2);
+    void saveAllCountries();
 }

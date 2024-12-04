@@ -2,15 +2,26 @@ package com.agin.countrly.service.impl;
 
 import com.agin.countrly.dto.response.CountryCoordinates;
 import com.agin.countrly.dto.response.CountryInfoResponse;
+import com.agin.countrly.entity.CountryData;
 import com.agin.countrly.exception.CountryException;
+import com.agin.countrly.repository.CountryDataRepository;
+import com.agin.countrly.service.CountryService;
 import com.agin.countrly.service.LocationService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 @Slf4j
 @Service
@@ -18,28 +29,32 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class LocationServiceImpl implements LocationService {
     @Autowired
     private RestTemplate restTemplate;
+    private final CountryDataRepository countryDataRepository;
 
     @Override
     public CountryCoordinates getCountryCoordinates(String countryName) {
-        // Create the Url for the API request
+        //
+        String encodedCountryName = URLEncoder.encode(countryName, StandardCharsets.UTF_8);
+        System.out.println("Encoded country name: " + encodedCountryName);
+        // Build the url for the request
         String url = UriComponentsBuilder
                 .fromHttpUrl("https://nominatim.openstreetmap.org/search")
-                .queryParam("country", countryName)
+                .queryParam("country", encodedCountryName)
                 .queryParam("format", "json")
                 .queryParam("limit", "1")
                 .queryParam("accept-language", "en")
                 .toUriString();
 
-        // make the request and automatic map the response to the object by fields name
+        // Java automatic maps the response from the API to the DTO class
         CountryCoordinates[] response = restTemplate.getForObject(url, CountryCoordinates[].class);
 
-        // Verify the response
         if (response != null && response.length > 0) {
             return response[0];
         } else {
             throw new CountryException("No country found with name: " + countryName);
         }
     }
+
 
     public double calculateDistanceBetweenCountries(CountryCoordinates coordinates1, CountryCoordinates coordinates2) {
         // get the coordinates
@@ -101,8 +116,10 @@ public class LocationServiceImpl implements LocationService {
         return "Unknown"; // Dacă nu se încadrează în niciuna din direcțiile de mai sus
     }
 
-    @Override
-    public CountryInfoResponse getInfoBetweenCountries(String country1, String country2) {
+
+    //@Override
+    //Old method that use another API - slow
+    public CountryInfoResponse _getInfoBetweenCountries(String country1, String country2) {
         CountryCoordinates coordinates1 = getCountryCoordinates(country1);
         CountryCoordinates coordinates2 = getCountryCoordinates(country2);
         if(coordinates1 == null || coordinates2 == null) {
@@ -115,4 +132,74 @@ public class LocationServiceImpl implements LocationService {
         return new CountryInfoResponse(distance, direction);
 
     }
+
+    private List<String> getCountries(){
+        String[] countryCodes = Locale.getISOCountries();
+        List<String> countries = new ArrayList<>();
+
+        for (String countryCode : countryCodes) {
+
+            Locale obj = new Locale("", countryCode);
+            countries.add(obj.getDisplayCountry(obj));
+        }
+
+        return countries;
+    }
+
+    @Override
+    public void saveAllCountries(){
+        List<String> countries = getCountries();
+
+        for (String countryName : countries) {
+
+            try{
+                CountryCoordinates countryCoordinates = getCountryCoordinates(countryName);
+
+                CountryData countryData = new CountryData();
+                countryData.setName(countryName);
+                countryData.setLatitude(countryCoordinates.getLat());
+                countryData.setLongitude(countryCoordinates.getLon());
+                countryDataRepository.save(countryData);
+
+                System.out.println("Saved with success country : " + countryName);
+            } catch (Exception e){
+                System.err.println("Error for country: " + countryName + " - " + e.getMessage());
+            }
+
+        }
+    }
+
+    //New method that use info from database - faster
+    @Override
+    public CountryInfoResponse getInfoBetweenCountries(String country1, String country2) {
+        CountryData countryData1 = countryDataRepository.findByName(country1);
+        CountryData countryData2 = countryDataRepository.findByName(country2);
+
+        if(countryData1 == null) {
+            throw new CountryException("No country found with name: " + country1);
+        }
+        if(countryData2 == null) {
+            throw new CountryException("No country found with name: " + country2);
+        }
+
+        CountryCoordinates coordinates1 = CountryCoordinates.builder()
+                .countryName(countryData1.getName())
+                .lat(countryData1.getLatitude())
+                .lon(countryData1.getLongitude())
+                .build();
+
+        CountryCoordinates coordinates2 = CountryCoordinates.builder()
+                .countryName(countryData2.getName())
+                .lat(countryData2.getLatitude())
+                .lon(countryData2.getLongitude())
+                .build();
+
+        double distance = calculateDistanceBetweenCountries(coordinates1, coordinates2);
+        String direction = getDirectionBetweenCountries(coordinates1, coordinates2);
+
+        return new CountryInfoResponse(distance, direction);
+
+    }
+
+
 }
