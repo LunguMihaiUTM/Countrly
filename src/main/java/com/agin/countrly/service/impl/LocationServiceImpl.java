@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static org.apache.commons.lang3.StringUtils.substring;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -172,6 +174,10 @@ public class LocationServiceImpl implements LocationService {
     //New method that use info from database - faster
     @Override
     public CountryInfoResponse getInfoBetweenCountries(String country1, String country2) {
+        // Adapt the input to the data from DB
+        country1 = capitalizeWords(country1);
+        country2 = capitalizeWords(country2);
+
         CountryData countryData1 = countryDataRepository.findByName(country1);
         CountryData countryData2 = countryDataRepository.findByName(country2);
 
@@ -201,5 +207,17 @@ public class LocationServiceImpl implements LocationService {
 
     }
 
+    private String capitalizeWords(String input) {
+
+        String[] words = input.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        for (String word : words) {
+            if (!word.isEmpty() && !word.equals("&")) {
+                result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1).toLowerCase()).append(" ");
+            }
+        }
+        return result.toString().trim();
+    }
 
 }

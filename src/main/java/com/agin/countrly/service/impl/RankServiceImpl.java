@@ -33,7 +33,7 @@ public class RankServiceImpl implements RankService {
         }
 
         // Validate the User
-        User user = userRepository.findById(userId).orElse(null);
+        User user = userRepository.findUserWithoutPasswordById(userId).orElse(null);
         if(user == null) {
             throw new IllegalArgumentException("User not found");
         }
