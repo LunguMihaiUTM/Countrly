@@ -27,10 +27,11 @@ public class LocationController {
         return ResponseEntity.ok(locationService.getInfoBetweenCountries(userInputCountry, targetCountry));
     }
 
-    @Operation(summary = "Save Countries", description = "Only for the test, dont try to run this method")
-    @GetMapping("/save-countries")
-    public ResponseEntity<Void> saveCountryInfo(){
-        locationService.saveAllCountries();
-        return ResponseEntity.ok().build();
-    }
+    // Use to save all countries coordinates, before user make sure the CountryData table is empty
+//    @Operation(summary = "Save Countries", description = "Only for the test, dont try to run this method")
+//    @GetMapping("/save-countries")
+//    public ResponseEntity<Void> saveCountryInfo(){
+//        locationService.saveAllCountries();
+//        return ResponseEntity.ok().build();
+//    }
 }
