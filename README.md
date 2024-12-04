@@ -122,11 +122,11 @@ a new project from GitHub. You can use the following environment variables based
 
 ```properties
 spring_profiles_active=prod
-PROD_DB_HOST=postgres.railway.internal
-PROD_DB_PORT=5432
-PROD_DB_NAME=railway
-PROD_DB_PASSWORD=RBQsUtCjrydcabuaCIjJCMevGVawGJXJ
-PROD_DB_USERNAME=postgres
+PROD_DB_HOST=
+PROD_DB_PORT=
+PROD_DB_NAME=
+PROD_DB_PASSWORD=
+PROD_DB_USERNAME=
 ```
 
 You don't need GitHub Actions or any type of pipeline for this setup because Railway handles this for you. Simply push your code to GitHub
