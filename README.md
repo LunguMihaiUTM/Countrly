@@ -129,18 +129,3 @@ PROD_DB_PASSWORD=
 PROD_DB_USERNAME=
 ```
 
-You don't need GitHub Actions or any type of pipeline for this setup because Railway handles this for you. Simply push your code to GitHub
-and a new build and deploy will be triggered. If you want to disable this functionality you can from the settings of your project
-on Railway.
-
-### Coming Soon
-
-- [https://www.heroku.com](https://www.heroku.com/)
-- [https://render.com](https://render.com/)
-- [https://fly.io](https://fly.io/)
-- [https://porter.run](https://porter.run/)
-- [https://www.cloudfoundry.org/](https://www.cloudfoundry.org/)
-- [https://www.digitalocean.com](https://www.digitalocean.com/)
-- [https://aws.amazon.com](https://aws.amazon.com/)
-- [https://cloud.google.com](https://cloud.google.com/)
-- [OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift)
