@@ -16,49 +16,71 @@ Countrly is a RESTful API-based web application built with Spring Boot. It is de
 ## API Endpoints
 
 ### Authentication API
-| Method  | Endpoint         | Description                      |
-|---------|----------------|----------------------------------|
-| POST    | /auth/register | Registers a new user            |
-| POST    | /auth/login    | Authenticates a user            |
+
+| Method | Endpoint       | Description          |
+| ------ | -------------- | -------------------- |
+| POST   | /auth/register | Registers a new user |
+| POST   | /auth/login    | Authenticates a user |
 
 ### Country API
-| Method  | Endpoint                 | Description                              |
-|---------|--------------------------|------------------------------------------|
-| GET     | /country                | Retrieves all countries                 |
-| POST    | /country/complexity/{filter} | Retrieves countries by complexity (Easy, Medium, Hard) |
+
+| Method | Endpoint                     | Description                                            |
+| ------ | ---------------------------- | ------------------------------------------------------ |
+| GET    | /country                     | Retrieves all countries                                |
+| POST   | /country/complexity/{filter} | Retrieves countries by complexity (Easy, Medium, Hard) |
+
+**Example of API usage for country complexity:**
+
+<img src="images/swagger_API.png" width="75%" />
+
 
 ### Location API
-| Method  | Endpoint                             | Description                                      |
-|---------|--------------------------------------|--------------------------------------------------|
-| GET     | /location/get-info-between-countries | Gets information between two given countries: direction and distance    |
+
+| Method | Endpoint                             | Description                                                          |
+| ------ | ------------------------------------ | -------------------------------------------------------------------- |
+| GET    | /location/get-info-between-countries | Gets information between two given countries: direction and distance |
+
+**Example of input for Location API. Input 2 country**
+
+<img src="images/Swagger_Location_API_Input.png" width="50%" />
+
+**Example of output for Location API. Output : The distance in km and the direction**
+
+<img src="images/Swagger_Location_API_Output.png" width="50%" />
 
 ### Rank API
-| Method  | Endpoint                           | Description                                     |
-|---------|------------------------------------|-------------------------------------------------|
-| PATCH   | /country/users/{userId}/increment | Increments rank for a user                     |
-| GET     | /country/all                      | Retrieves all user ranks                        |
+
+| Method | Endpoint                          | Description                |
+| ------ | --------------------------------- | -------------------------- |
+| PATCH  | /country/users/{userId}/increment | Increments rank for a user |
+| GET    | /country/all                      | Retrieves all user ranks   |
 
 ### User API
-| Method  | Endpoint         | Description                      |
-|---------|----------------|----------------------------------|
-| GET     | /user/{userId} | Retrieves user details by ID     |
-| GET     | /user/all      | Retrieves all users (for testing) |
+
+| Method | Endpoint       | Description                       |
+| ------ | -------------- | --------------------------------- |
+| GET    | /user/{userId} | Retrieves user details by ID      |
+| GET    | /user/all      | Retrieves all users (for testing) |
 
 ## Authentication & Authorization
 
 The application uses JWT (JSON Web Token) for secure authentication:
+
 - **User Authentication:** Users log in using credentials, receiving a JWT token.
 - **Token Validation:** The application validates JWT tokens on each request.
 - **Spring Security:** Manages authentication using `UserDetailsService` and `AuthenticationProvider`.
 
 ### Swagger API Documentation
+
 The API provides an interactive Swagger UI for exploring and testing endpoints:
+
 - **URL:** [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 - **OpenAPI Specification:** Available at `/v3/api-docs`
 
 ## Exception Handling
 
 The application handles exceptions globally:
+
 - **BadCredentialsException** - 401 UNAUTHORIZED for incorrect login credentials.
 - **AuthException** - 400 BAD REQUEST for authentication failures.
 - **GameException** - 400 BAD REQUEST for game-related errors.
@@ -66,13 +88,16 @@ The application handles exceptions globally:
 ## Installation and Running
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/LunguMihaiUTM/Countrly.git
 cd Countrly
 ```
 
 ### 2. Database Configuration
+
 Ensure PostgreSQL is running and update `application.properties`:
+
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/countrly
 spring.datasource.username=your_username
@@ -80,14 +105,18 @@ spring.datasource.password=your_password
 ```
 
 ### 3. Run the Application
+
 ```bash
 ./mvnw spring-boot:run
 ```
-The application will be available at: http://localhost:8080
+
+The application will be available at: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
 
 ## Contribution
 
 To contribute:
+
 1. Fork the repository
 2. Create a new branch
 3. Submit a pull request
