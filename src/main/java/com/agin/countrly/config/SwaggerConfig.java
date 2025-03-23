@@ -11,21 +11,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@OpenAPIDefinition(
+/*@OpenAPIDefinition(
         servers = {
                 @Server(
                         url = "https://exciting-wonder-production.up.railway.app",
                         description = "Server de producție"
                 )
         }
-)public class SwaggerConfig {
-//    @Value("${application.name}")
-//    private String applicationName;
-//
-//    @Value("${application.version}")
-//    private String buildVersion;
-
-
+)*/
+public class SwaggerConfig {
     @Bean
     GroupedOpenApi openApi() {
         return GroupedOpenApi.builder()
@@ -33,15 +27,4 @@ import org.springframework.context.annotation.Configuration;
                 .pathsToMatch("/**")
                 .build();
     }
-
-
-//    @Bean
-//    OpenAPI customOpenAPI() {
-//        return new OpenAPI()
-//                .info(
-//                        new Info()
-//                                .title("PreorderBack API")
-//                                .version(applicationName.concat("_".concat(buildVersion)))
-//                ).components(new Components());
-//    }
 }

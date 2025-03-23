@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS countries (
     name        VARCHAR(255) NOT NULL
     );
 
-ALTER TABLE countries OWNER TO postgres;
+ALTER TABLE countries OWNER TO root;
 
 CREATE SEQUENCE country_id_seq;
 
-ALTER SEQUENCE country_id_seq OWNER TO postgres;
+ALTER SEQUENCE country_id_seq OWNER TO root;
