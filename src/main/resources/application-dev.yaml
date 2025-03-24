@@ -17,4 +17,4 @@ spring:
     #Countries Shapes path reference
 shape:
   resources:
-    path: src/main/resources/shapes
+    path: C:/Users/lungu/Desktop/UTM/Personal Projects/Python image downloader/imagini
