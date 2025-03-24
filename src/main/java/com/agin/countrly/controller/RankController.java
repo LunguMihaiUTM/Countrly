@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/country")
+@RequestMapping("/rank")
 public class RankController {
     private final RankService rankService;
 
