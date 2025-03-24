@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS complexities (
     CONSTRAINT FK_COUNTRY_COMPLEXITY FOREIGN KEY (country_id) REFERENCES countries (id)
     );
 
-ALTER TABLE complexities OWNER TO postgres;
+ALTER TABLE complexities OWNER TO root;
 
 CREATE SEQUENCE complexity_id_seq;
 
-ALTER SEQUENCE complexity_id_seq OWNER TO postgres;
+ALTER SEQUENCE complexity_id_seq OWNER TO root;
