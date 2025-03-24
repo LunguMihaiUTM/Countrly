@@ -17,21 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/location")
 public class LocationController {
 
-    @Autowired
-    private LocationService locationService;
+    private final LocationService locationService;
 
     @GetMapping("/get-info-between-countries")
-    public ResponseEntity<CountryInfoResponse> getCountryInfo(
+    public ResponseEntity<CountryInfoResponse> getInfoBetweenCountries(
             @RequestParam String userInputCountry,
             @RequestParam String targetCountry) {
         return ResponseEntity.ok(locationService.getInfoBetweenCountries(userInputCountry, targetCountry));
-    }
-
-     //Use to save all countries coordinates, before user make sure the CountryData table is empty
-    @Operation(summary = "Save Countries", description = "Only for the test, dont try to run this method")
-    @GetMapping("/save-countries")
-    public ResponseEntity<Void> saveCountryInfo(){
-        locationService.saveAllCountries();
-        return ResponseEntity.ok().build();
     }
 }
