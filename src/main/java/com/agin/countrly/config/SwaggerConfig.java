@@ -11,14 +11,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@OpenAPIDefinition(
+/*@OpenAPIDefinition(
         servers = {
                 @Server(
                         url = "https://exciting-wonder-production.up.railway.app",
                         description = "Server de producție"
                 )
         }
-)public class SwaggerConfig {
+)*/
+public class SwaggerConfig {
 //    @Value("${application.name}")
 //    private String applicationName;
 //
