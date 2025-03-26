@@ -116,6 +116,7 @@ The application handles exceptions globally:
 ```bash
 git clone https://github.com/LunguMihaiUTM/Countrly.git
 cd Countrly
+```
 
 
 ### 2. Database Configuration
