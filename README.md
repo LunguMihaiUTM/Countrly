@@ -15,12 +15,24 @@ Countrly is a RESTful API-based web application built with Spring Boot. It is de
 
 ## API Endpoints
 
+**Swagger Interface**
+
+<img src="images/Swagger.png" width="50%" />
+
 ### Authentication API
 
 | Method | Endpoint       | Description          |
 | ------ | -------------- | -------------------- |
 | POST   | /auth/register | Registers a new user |
 | POST   | /auth/login    | Authenticates a user |
+
+**Example of input for Register API**
+
+<img src="images/auth_input.png" width="40%" />
+
+**Example of output for Register API, The API response with a JWT(Tokeb)**
+
+<img src="images/auth_output.png" width="100%" />
 
 ### Country API
 
@@ -29,24 +41,19 @@ Countrly is a RESTful API-based web application built with Spring Boot. It is de
 | GET    | /country                     | Retrieves all countries                                |
 | POST   | /country/complexity/{filter} | Retrieves countries by complexity (Easy, Medium, Hard) |
 
-**Example of API usage for country complexity:**
-
-<img src="images/swagger_API.png" width="75%" />
-
-
 ### Location API
 
 | Method | Endpoint                             | Description                                                          |
 | ------ | ------------------------------------ | -------------------------------------------------------------------- |
 | GET    | /location/get-info-between-countries | Gets information between two given countries: direction and distance |
 
-**Example of input for Location API. Input 2 country**
+**Example of input for Location API. Input 2 countries:**
 
-<img src="images/Swagger_Location_API_Input.png" width="50%" />
+<img src="images/location_input.png" width="50%" />
 
-**Example of output for Location API. Output : The distance in km and the direction**
+**Example of output for Location API. Output: The distance in km and the direction:**
 
-<img src="images/Swagger_Location_API_Output.png" width="50%" />
+<img src="images/location_output.png" width="50%" />
 
 ### Rank API
 
@@ -61,6 +68,23 @@ Countrly is a RESTful API-based web application built with Spring Boot. It is de
 | ------ | -------------- | --------------------------------- |
 | GET    | /user/{userId} | Retrieves user details by ID      |
 | GET    | /user/all      | Retrieves all users (for testing) |
+
+### Helper API (New)
+
+| Method | Endpoint                            | Description                                                         |
+| ------ | ----------------------------------- | ------------------------------------------------------------------- |
+| GET    | /helper/populate-shapes-and-countries | Populates the countries and shapes tables, use after saving country coordinates. |
+| GET    | /helper/save-countries             | Saves country coordinates data into the countries-data table.       |
+
+#### 1. Database Population
+
+- **Method:** `populateDataBase()`
+- **Description:** Populates the database with country and shape data by matching country names with image files in the `shapes` folder.
+
+#### 2. Save All Countries
+
+- **Method:** `saveAllCountries()`
+- **Description:** Fetches a list of countries, retrieves their geographical coordinates using the Nominatim API, and saves the data into the `CountryData` table.
 
 ## Authentication & Authorization
 
@@ -92,7 +116,7 @@ The application handles exceptions globally:
 ```bash
 git clone https://github.com/LunguMihaiUTM/Countrly.git
 cd Countrly
-```
+
 
 ### 2. Database Configuration
 
