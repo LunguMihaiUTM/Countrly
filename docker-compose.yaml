@@ -1,0 +1,35 @@
+#version: '3.8'
+#services:
+#  app:
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      postgres-container:
+#        condition: service_healthy
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-container:5432/countrly?currentSchema=user_schema
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=1234
+#    networks:
+#      - app-network
+#
+#  postgres-container:
+#    image: postgres:latest
+#    environment:
+#      - POSTGRES_DB=countrly
+#      - POSTGRES_USER=root
+#      - POSTGRES_PASSWORD=1234
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - app-network
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U root -d countrly"]
+#      interval: 10s
+#      retries: 5
+#      start_period: 10s
+#
+#networks:
+#  app-network:
+#    driver: bridge

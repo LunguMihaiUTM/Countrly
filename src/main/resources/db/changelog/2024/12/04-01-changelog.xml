@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1733311651608-1" author="lungu">
+        <createSequence incrementBy="1" sequenceName="complexity_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1733311651608-2" author="lungu">
+        <createSequence incrementBy="1" sequenceName="country_data_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1733311651608-3" author="lungu">
+        <createSequence incrementBy="1" sequenceName="country_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1733311651608-4" author="lungu">
+        <createSequence incrementBy="1" sequenceName="rank_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1733311651608-5" author="lungu">
+        <createSequence incrementBy="1" sequenceName="shape_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1733311651608-6" author="lungu">
+        <createSequence incrementBy="1" sequenceName="user_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1733311651608-7" author="lungu">
+        <createTable tableName="complexities">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_complexities"/>
+            </column>
+            <column name="complexity" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733311651608-8" author="lungu">
+        <createTable tableName="countries">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_countries"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733311651608-9" author="lungu">
+        <createTable tableName="countries_data">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_countries_data"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="latitude" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733311651608-10" author="lungu">
+        <createTable tableName="ranks">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ranks"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="rating" type="DOUBLE"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733311651608-11" author="lungu">
+        <createTable tableName="shapes">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_shapes"/>
+            </column>
+            <column name="country_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733311651608-12" author="lungu">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1733311651608-13" author="lungu">
+        <addUniqueConstraint columnNames="email" constraintName="uc_users_email" tableName="users"/>
+    </changeSet>
+    <changeSet id="1733311651608-14" author="lungu">
+        <addUniqueConstraint columnNames="username" constraintName="uc_users_username" tableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>

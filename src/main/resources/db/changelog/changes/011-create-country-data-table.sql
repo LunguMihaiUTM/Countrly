@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS countries_data (
                                          longitude      DOUBLE PRECISION NOT NULL
     );
 
-ALTER TABLE countries_data OWNER TO root;
+ALTER TABLE countries_data OWNER TO postgres;
 
 CREATE SEQUENCE country_data_id_seq;
 
-ALTER SEQUENCE country_data_id_seq OWNER TO root;
+ALTER SEQUENCE country_data_id_seq OWNER TO postgres;

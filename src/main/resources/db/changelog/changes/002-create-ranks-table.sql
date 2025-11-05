@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS ranks (
     CONSTRAINT FK_USER_RANK FOREIGN KEY (user_id) REFERENCES users (id)
     );
 
-ALTER TABLE ranks OWNER TO root;
+ALTER TABLE ranks OWNER TO postgres;
 
 CREATE SEQUENCE rank_id_seq;
 
-ALTER SEQUENCE rank_id_seq OWNER TO root;
+ALTER SEQUENCE rank_id_seq OWNER TO postgres;
